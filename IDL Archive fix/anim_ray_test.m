@@ -1,3 +1,25 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:39a69fc77230c3eb04461473df1a7ed4f9cea51c96234d2b13e030eab1bcfb2c
-size 398
+clear 
+clc
+close all
+
+pointxS = 0;
+pointx2 = 1;
+
+pointyS = 2;
+pointy2 = 3;
+
+set(0,'DefaultFigureWindowStyle','docked')
+figure;
+grid on
+hold on
+
+plot([pointxS,pointx2],[pointyS,pointy2],'r',LineStyle="--")
+axis equal
+
+x = [pointxS pointx2] ; 
+y = [pointyS pointy2] ; 
+p = polyfit(x,y,1) ; 
+xi = linspace(x(1),x(2)) ;
+yi = polyval(p,xi) ;
+comet(xi,yi)
+plot(x,y,'*r',xi,yi,'b')
