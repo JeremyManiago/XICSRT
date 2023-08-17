@@ -1,3 +1,53 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:2823a59e99b4b77f06176c24b6208d85cce6277159515896fe2c4ba9e6eb872f
-size 1447
+dict_keys(['config', 'total', 'found', 'lost'])
+dict_keys(['origin', 'direction', 'mask', 'wavelength'])
+dict_keys(['origin', 'direction', 'mask', 'wavelength'])
+dw1= 2.8e-05
+dw2= 0.005
+Detector pixsize = 20.0
+Concave Crystal pixsize = 20.0
+ph on det= 2281.0
+ 
+roots= [1920. 2040.]
+num of roots= 2
+1920.0 2040.0
+Initial n,a0,mean,sigma= 200 359.0 1988.768084173608 51.06382978723404
+popt= [ 348.72392676 1990.44641348   51.59167524]
+pcov= [[ 4.23660827e+00  2.38736358e-07 -4.17855398e-01]
+ [ 2.38736358e-07  1.23638858e-01 -3.53835172e-08]
+ [-4.17855398e-01 -3.53835172e-08  1.23638858e-01]]
+fwhmg= 121.48807685337987
+roots= [ 96 102]
+average of roots= 99.0
+96 102
+ 
+roots= [1720. 2160. 2180. 2200.]
+num of roots= 4
+1720.0 2200.0
+Initial n,a0,mean,sigma= 200 96.0 1962.463831652784 204.25531914893617
+popt= [  92.05689936 1960.88332923  198.75848464]
+pcov= [[ 7.99399463e-01  1.69153898e-07 -1.15063660e+00]
+ [ 1.69153898e-07  4.96859699e+00 -3.69671777e-07]
+ [-1.15063660e+00 -3.69671777e-07  4.96859704e+00]]
+fwhmg= 468.0364796359353
+roots= [ 86 108 109 110]
+average of roots= 103.25
+86 110
+ 
+roots= [1920. 2040.]
+num of roots= 2
+1920.0 2040.0
+ 
+roots= [1700. 2200.]
+num of roots= 2
+1700.0 2200.0
+fwhms of gaus fits x,y= 120.0 500.0
+100 96
+[1734.65746575 2167.32673267 2195.98559856 2212.70327033]
+fwhm= 478.045804580458
+fwhmgx= 121.48807685337987
+fwhmgy= 468.0364796359353
+intensity= 50000000.0
+Efficiency = 0.00456%
+5.0
+dw1= 28.0
+dw2= 5000.0

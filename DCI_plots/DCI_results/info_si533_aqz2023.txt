@@ -1,3 +1,39 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:8234568c4ee944b4a1cbb37aa4888bd6ac172b10b01d6cbb8d321283e9f0c857
-size 1114
+dict_keys(['config', 'total', 'found', 'lost'])
+dict_keys(['origin', 'direction', 'mask', 'wavelength'])
+dict_keys(['origin', 'direction', 'mask', 'wavelength'])
+dw1= 2.8e-05
+dw2= 2.77e-05
+Detector pixsize = 5.0
+Concave Crystal pixsize = 20.0
+ph on det= 285.0
+ 
+roots= [1927.2361809  1947.31155779]
+num of roots= 2
+1927.2361809045224 1947.3115577889446
+Initial n,a0,mean,sigma= 800 152.0 1997.3333333333333 8.54271356783924
+ 
+roots= [1987.46231156 2007.53768844]
+num of roots= 2
+1987.4623115577888 2007.537688442211
+Initial n,a0,mean,sigma= 800 194.0 2001.122807017544 8.54271356783924
+popt= [ 214.45817024 2001.18583403    2.64807185]
+pcov= [[ 1.02443796e-04  1.24072427e-06 -1.24500696e-06]
+ [ 1.24072427e-06  2.86896763e-08 -1.99025042e-08]
+ [-1.24500696e-06 -1.99025042e-08  2.38467830e-08]]
+fwhmg= 6.235679596141518
+roots= [ 99 100]
+average of roots= 99.5
+99 100
+ 
+roots= [1987.46231156 2007.53768844]
+num of roots= 2
+1987.4623115577888 2007.537688442211
+399 400
+[1996.50115012 2004.89148915]
+fwhm= 8.390339033903274
+fwhmgy= 6.235679596141518
+intensity= 50000000.0
+Efficiency = 0.000%
+5.0
+dw1= 28.0
+dw2= 27.7

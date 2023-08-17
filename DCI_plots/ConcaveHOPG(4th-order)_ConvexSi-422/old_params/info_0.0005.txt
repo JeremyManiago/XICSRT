@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b24b6b15a17fd9ee91b08be0bc66373d6c4f4488aef403d29fc1c6bde0ddf7e9
-size 518
+dict_keys(['config', 'total', 'found', 'lost'])
+dict_keys(['origin', 'direction', 'mask', 'wavelength'])
+dict_keys(['origin', 'direction', 'mask', 'wavelength'])
+dw1= 0.0098054
+dw2= 0.0013404
+ph on det= 38887.0
+ 
+roots= [ 9211.05527638 10190.95477387]
+num of roots= 2
+9211.055276381909 10190.954773869345
+Initial n,a0,mean,sigma= 40 19595.0 9748.052048242344 416.978509569122
+19 16
+[6265.97659766 9378.48784878]
+fwhm= 3112.5112511251127
+intensity= 50000000.0
+Efficiency = 0.077%
+5.0
+dw1= 9805.400000000001
+dw2= 1340.4

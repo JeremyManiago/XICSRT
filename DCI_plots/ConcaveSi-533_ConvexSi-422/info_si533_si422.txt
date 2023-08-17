@@ -1,3 +1,39 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0a75c48b84a9bdbf90fa3975cdc048eb4de9ac3c152f32f5f24e738c2c0ddf5f
-size 998
+dict_keys(['config', 'total', 'found', 'lost'])
+dict_keys(['origin', 'direction', 'mask', 'wavelength'])
+dict_keys(['origin', 'direction', 'mask', 'wavelength'])
+dw1= 2.8e-05
+dw2= 4.5e-05
+Detector pixsize = 20.0
+Concave Crystal pixsize = 20.0
+ph on det= 1075.0
+ 
+roots= [1960. 2000.]
+num of roots= 2
+1960.0 2000.0
+Initial n,a0,mean,sigma= 200 556.0 1990.3441860465116 17.02127659574468
+ 
+roots= [1940. 2000.]
+num of roots= 2
+1940.0 2000.0
+Initial n,a0,mean,sigma= 200 341.0 1981.6558139534884 25.53191489361702
+popt= [ 344.23615689 1981.59336724   24.98199848]
+pcov= [[ 2.28615092e-01  2.76424729e-07 -1.10596002e-02]
+ [ 2.76424729e-07  1.60551373e-03 -3.66945510e-08]
+ [-1.10596002e-02 -3.66945510e-08  1.60525736e-03]]
+fwhmg= 58.82761001334006
+roots= [ 97 100]
+average of roots= 98.5
+97 100
+ 
+roots= [1940. 2000.]
+num of roots= 2
+1940.0 2000.0
+100 99
+[1950.3950395  2012.09120912]
+fwhm= 61.6961696169617
+fwhmgy= 58.82761001334006
+intensity= 50000000.0
+Efficiency = 0.002%
+5.0
+dw1= 28.0
+dw2= 45.0
