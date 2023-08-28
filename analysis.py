@@ -8,11 +8,10 @@ def run_analysis(file, args, Mag):
     import scipy
     from scipy.interpolate import UnivariateSpline
     from scipy.optimize import curve_fit
-    import pylab as pl
-    from scipy.signal import chirp, find_peaks, peak_widths
     xicsrt.warn_version('0.8')
     import pathlib
     import os
+    from my_functions import my_fwhm
 
 
     here = os.path.realpath(pathlib.Path().resolve())
@@ -49,9 +48,22 @@ def run_analysis(file, args, Mag):
     ax[0,0].set_xlabel('Distance $(\mu m)$')
     ax[0,0].set_ylabel('Distance $(\mu m)$')
 
+    # get size of detector
+    ny, nx = np.shape(detImage)
+    # make pixel arrays
+    ixs = np.arange(nx)
+    iys = np.arange(ny)
 
     xsum=np.sum(detImage, axis = 0)
     ysum=np.sum(detImage, axis = 1)
+
+    xsize_det=1.0e6*results['config']['optics']['detector']['xsize']
+    ysize_det=1.0e6*results['config']['optics']['detector']['ysize']
+    dxdpix=xsize_det/nx
+    dydpix=ysize_det/ny
+    xs=dxdpix*ixs
+    ys=dydpix*iys
+
     phdet=np.sum(xsum)
     print('photons on detector = ', phdet)
     cphdet = str(phdet)
@@ -69,11 +81,12 @@ def run_analysis(file, args, Mag):
     cint=str(intensity*1.0E-7)[0:5]
     print(cint)
 
-
+    # Normalize
     rangex = np.max(xsum) - np.min(xsum)
     rangey = np.max(ysum) - np.min(ysum)
     xsum = (xsum-np.min(xsum))/rangex
     ysum = (ysum-np.min(ysum))/rangey
+    # max = 1.0e0
 
 
 
@@ -89,6 +102,23 @@ def run_analysis(file, args, Mag):
     ax[0,1].sharey(ax[0,0])
 
 
+    def fwhm(vals, gfit, max):
+        import numpy as np
+        from scipy.interpolate import UnivariateSpline
+        from scipy.interpolate import splrep, PPoly
+
+        tck = splrep(vals, gfit - np.max(gfit)/2)
+        ppoly = PPoly.from_spline(tck)
+        r1, r2 = ppoly.roots(extrapolate = False)
+
+        # spline = UnivariateSpline(vals, gfit - max/2)
+        # r1, r2 = spline.roots()
+        fwhm = r2 - r1
+
+        print('fwhm and roots = ', fwhm, r1, r2)
+
+        return(fwhm, r1, r2)
+
     def Gauss(x, a, x0, sigma):
         import numpy as np
 
@@ -97,15 +127,19 @@ def run_analysis(file, args, Mag):
     def gaussfit(x,y):
         from scipy.optimize import curve_fit
         import numpy as np
+        from my_functions import fwhm_spl
         
         a0 = np.max(y)
         n = len(x)                          # the number of data
         mean = sum(x*y)/sum(y)              # note this correction
         #sigma = sum(y*(x-mean)**2)/sum(y)  # note this correction
-        sigma = 0.5
+        fw = fwhm_spl(x, y, 0.5, 200)
+        sigma = fw/2.35   
+        if sigma <= 0: sigma = 0.5
         
-        # print('Initial n, a0, mean, sigma = ', n, a0, mean, sigma)
-        popt,pcov = curve_fit(Gauss, x, y, p0 = [a0, mean, sigma], maxfev=2000)
+        sigma = 0.5
+        print('Initial n, a0, mean, sigma = ', n, a0, mean, sigma)
+        popt,pcov = curve_fit(Gauss, x, y, p0 = [a0, mean, sigma], maxfev = 2000)
         # print('popt = ', popt)
         # print('pcov = ', pcov)
 
@@ -117,25 +151,49 @@ def run_analysis(file, args, Mag):
 
 
     #Gaussian fit
-    gfitx, xmax = gaussfit(xs, xsum)
-    gfity, ymax = gaussfit(ys, ysum)
+    nspl = 200
+    thr = 0.5
+    try:
+        fwhmx, fwhmgx, gfitx = my_fwhm(xs, xsum, thr, nspl)[0:3]
+        xmax = np.max(gfitx)
+        print('fwhmx = ', fwhmx, fwhmgx)
+        ax[1,0].plot(xs, gfitx, lw = 1, color = 'm', label = 'xfit')
+        xsr = fwhmx/Mag
+    except:
+        fwhmx = '?'
+        xsr = '?'
+        pass
 
-    ax[1,0].plot(xs, gfitx, lw = 1, color = 'm', label = 'xfit')
-    ax[0,1].plot(gfity, ys, lw = 1, color = 'r', label = 'yfit')
+    try:
+        fwhmy, fwhmgy, gfity = my_fwhm(ys, ysum, thr, nspl)[0:3]
+        ymax = np.max(gfity)
+        print('fwhmy = ', fwhmy, fwhmgy)
+        ax[0,1].plot(gfity, ys, lw = 1, color = 'r', label = 'yfit')
+        ysr = fwhmy/Mag
+    except:
+        gfity, ymax = gaussfit(ys, ysum)
+        fwhmy = '?'
+        ysr = '?'
+        pass
+   
+    fwhmx, rx1, rx2 = fwhm(xs, gfitx, xmax)
 
-
-    splinex = UnivariateSpline(xs, gfitx - xmax/2, s=0)
-    rx1, rx2 = splinex.roots()
-    fwhmx = rx2 - rx1
-
-    spliney = UnivariateSpline(ys, gfity - ymax/2, s=0)
-    ry1, ry2 = spliney.roots()
-    fwhmy = ry2 - ry1
-
-
-    ax[1,0].plot([rx1, rx2], [xmax/2, xmax/2], color = 'g', label = 'fwhm x = \n' + str(fwhmx)[0:5])
-    ax[0,1].plot([ymax/2, ymax/2], [ry1, ry2], color = 'c', label = 'fwhm y = \n' + str(fwhmy)[0:5])
-
+    try:
+        # gfitx, xmax = gaussfit(xs, xsum)
+        fwhmx, rx1, rx2 = fwhm(xs, gfitx, xmax)
+        ax[1,0].plot([rx1, rx2], [xmax/2, xmax/2], color = 'g', label = 'fwhm x = \n' + str(fwhmx)[0:5])
+    except:
+        print('Error in fwhmx')
+        pass
+    
+    try:
+        # gfity, ymax = gaussfit(ys, ysum)
+        fwhmy, ry1, ry2 = fwhm(ys, gfity, ymax)
+        ax[0,1].plot([ymax/2, ymax/2], [ry1, ry2], color = 'c', label = 'fwhm y = \n' + str(fwhmy)[0:5])
+    except:
+        print('Error in fwhmy')
+        pass
+    
 
 
     ax[1,1].axis('off')
@@ -158,8 +216,7 @@ def run_analysis(file, args, Mag):
 
     fig1.suptitle(file)
 
-    xsr = fwhmx/Mag
-    ysr = fwhmy/Mag
+
 
     fig1.text(0.75, 0.27, 
             'Magnification = ' + str(Mag) + 

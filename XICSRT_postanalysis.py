@@ -113,7 +113,7 @@ def analysis(file, Mag):
         plt.title('Detector')
         plt.xlabel('Distance $(\mu m)$')
         plt.ylabel('Distance $(\mu m)$')
-        plt.savefig(here + '/DCI_plots/DCI_futurework/det_plot_' + file + '.png', dpi = 1200)
+        # plt.savefig(here + '/DCI_plots/DCI_futurework/det_plot_' + file + '.png', dpi = 1200)
 
 
         cxsum=np.sum(crystalImage,axis=0)
@@ -135,7 +135,7 @@ def analysis(file, Mag):
                   '\n Crystal pixsize = ' + str(c_pixsize)[0:5] + ' $(\mu m)$')
         plt.xlabel('Distance $(\mu m)$')
         plt.ylabel('Distance $(\mu m)$')
-        plt.savefig(here + '/DCI_plots/DCI_futurework/concavecrystal_plot_' + file + '.png', dpi = 1200)
+        # plt.savefig(here + '/DCI_plots/DCI_futurework/concavecrystal_plot_' + file + '.png', dpi = 1200)
 
         try:
             c2xsum=np.sum(crystal2Image,axis=0)
@@ -153,7 +153,7 @@ def analysis(file, Mag):
                     '\n Crystal pixsize = ' + str(c_pixsize)[0:5] + ' $(\mu m)$')
             plt.xlabel('Distance $(\mu m)$')
             plt.ylabel('Distance $(\mu m)$')
-            plt.savefig(here + '/DCI_plots/DCI_futurework/convexcrystal_plot_' + file + '.png', dpi = 1200)
+            # plt.savefig(here + '/DCI_plots/DCI_futurework/convexcrystal_plot_' + file + '.png', dpi = 1200)
         except:
             pass
 
@@ -163,9 +163,6 @@ def analysis(file, Mag):
         ax[0,0].contourf(xM, yM, detImage, 10, cmap=cmaps)
         ax[0,0].set_xlabel('Distance $(\mu m)$')
         ax[0,0].set_ylabel('Distance $(\mu m)$')
-
-
-
 
 
 
@@ -396,8 +393,8 @@ def analysis(file, Mag):
 
     plotline(results)
     fig1.tight_layout()
-    fig1.savefig(here + '/DCI_plots/DCI_futurework/plots_' + file + '.png', dpi = 1200)
-    # plt.show(block=True)
+    # fig1.savefig(here + '/DCI_plots/DCI_futurework/plots_' + file + '.png', dpi = 1200)
+    plt.show(block = True)
     fig1.clf()
 
     # sys.stdout = original_stdout # Reset the standard output to its original value

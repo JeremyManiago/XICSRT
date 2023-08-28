@@ -174,7 +174,7 @@ def gaussfit(x,y):
     if sigma <= 0: sigma=0.5
        
     print('Initial n,a0,mean,sigma=',n,a0,mean,sigma)
-    popt,pcov = curve_fit(gaus,x,y,p0=[a0,mean,sigma])
+    popt,pcov = curve_fit(gaus,x,y,p0=[a0,mean,sigma], maxfev = 2000)
     print('popt=',popt)
     print('pcov=',pcov)
     return(popt)
